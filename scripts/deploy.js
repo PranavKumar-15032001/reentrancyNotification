@@ -2,7 +2,6 @@
 // yours, or create new ones.
 
 const path = require("path");
-
 async function main() {
   // This is just a convenience check
   if (network.name === "hardhat") {
@@ -22,19 +21,21 @@ async function main() {
 
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  const Token = await ethers.getContractFactory("Token");
-  const token = await Token.deploy();
-  await token.deployed();
+  const InsecureEtherVault = await ethers.getContractFactory("InsecureEtherVault");
+  const insecureEtherVault = await InsecureEtherVault.deploy();
+  await insecureEtherVault.deployed();
 
-  console.log("Token address:", token.address);
-
+  console.log("InsecureEtherVault address:", insecureEtherVault.address);
+  console.log("Owner Address",await insecureEtherVault.owner());
+  await insecureEtherVault.deposit({value: ethers.utils.parseEther("5.0")});
+  console.log("Balance " , await insecureEtherVault.getBalance());
   // We also save the contract's artifacts and address in the frontend directory
-  saveFrontendFiles(token);
+  saveBackendFiles(insecureEtherVault);
 }
 
-function saveFrontendFiles(token) {
+function saveBackendFiles(token) {
   const fs = require("fs");
-  const contractsDir = path.join(__dirname, "..", "frontend", "src", "contracts");
+  const contractsDir = path.join(__dirname, "..", "backend", "src", "contracts");
 
   if (!fs.existsSync(contractsDir)) {
     fs.mkdirSync(contractsDir);
@@ -42,13 +43,13 @@ function saveFrontendFiles(token) {
 
   fs.writeFileSync(
     path.join(contractsDir, "contract-address.json"),
-    JSON.stringify({ Token: token.address }, undefined, 2)
+    JSON.stringify({ InsecureEtherVault: token.address }, undefined, 2)
   );
 
-  const TokenArtifact = artifacts.readArtifactSync("Token");
+  const TokenArtifact = artifacts.readArtifactSync("InsecureEtherVault");
 
   fs.writeFileSync(
-    path.join(contractsDir, "Token.json"),
+    path.join(contractsDir, "InsecureEtherVault.json"),
     JSON.stringify(TokenArtifact, null, 2)
   );
 }

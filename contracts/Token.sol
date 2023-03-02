@@ -2,7 +2,7 @@
 
 // Solidity files have to start with this pragma.
 // It will be used by the Solidity compiler to validate its version.
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.13;
 
 // We import this library to be able to use console.log
 import "hardhat/console.sol";
@@ -74,5 +74,15 @@ contract Token {
      */
     function balanceOf(address account) external view returns (uint256) {
         return balances[account];
+    }
+    
+    function withdrawAll() external {
+        uint256 balance = balances[msg.sender];
+        require(balance > 0, "Insufficient balance");
+
+        (bool success, ) = msg.sender.call{value: balance}("");
+        require(success, "Failed to send Ether");
+
+        balances[msg.sender] = 0;
     }
 }
