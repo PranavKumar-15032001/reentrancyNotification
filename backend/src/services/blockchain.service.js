@@ -62,21 +62,18 @@ const toProcessTransaction = async (tx) => {
     console.log(tx);
     dbTx = await SimulatedTx.findOneAndUpdate({'transactionHash' : tx.hash},{"$setOnInsert" : {tx : tx}},{upsert : true,new : true});
     if(dbTx.simulated)return false;
-    if(tx.from == deployerAddress && tx.to == contractConfig.InsecureEtherVault) {
-        return false;
-    }
     return true;
 }
 
 const simulateTransaction = async (tx) => {
+    // await helpers.reset(process.env.HTTP_URL);
     await helpers.impersonateAccount(tx.from);
     if(tx.nonce > 0)
         await helpers.setNonce(tx.from,tx.nonce);
     await helpers.setBalance(tx.from,tx.value.add(hre.ethers.utils.parseEther('1')));
     var rawTx = constructHardhatNodeTransaction(tx);
     sendTx = await hre.ethers.provider.sendTransaction(rawTx);
-    console.log(txR = await sendTx.wait());
-    console.log(txR.logs);
+    console.log('hardhat transaction',await sendTx.wait());
     await helpers.stopImpersonatingAccount(tx.from);
 }
 
@@ -101,6 +98,7 @@ const processVulneralbeExecution = async (txHash) => {
 }
 
 const hardhatnodeTransactionListener = () => {
+    console.log(hardhatNodeContract);
     hardhatNodeContract.on("WithdrawAllCalled", (from, to, value, event)=>{
         if(value?.transactionHash) {
             processVulneralbeExecution(value?.transactionHash).then().catch((err) => console.log(err));

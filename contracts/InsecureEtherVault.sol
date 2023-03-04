@@ -31,11 +31,11 @@ contract InsecureEtherVault is Ownable,Pausable {
         return userBalances[_user];
     }
 
-    function pause() public onlyOwner whenNotPaused {
+    function pause() public onlyOwner {
         _pause();
     }
 
-    function unpause() public onlyOwner whenPaused {
+    function unpause() public onlyOwner {
         _unpause();
     }
 }

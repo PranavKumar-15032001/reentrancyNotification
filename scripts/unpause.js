@@ -9,6 +9,6 @@ async function main() {
     contract = await InsecureEtherValutFactory.attach(config.InsecureEtherVault);
     tx = await contract.unpause();
     console.log(tx);
-    console.log(tx.await);
+    console.log(await tx.wait());
 }
 main().catch((err)=> console.log(err));
