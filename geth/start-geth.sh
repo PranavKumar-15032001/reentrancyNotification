@@ -1,0 +1,1 @@
+geth --http --http.api eth,web3,net --http.corsdomain "*" --ws --ws.port 8543 --ws.api eth,net,web3 --ws.origins="*" --mine --miner.threads=1 --miner.etherbase=0x638AcfcA4Cf49c43F227E8424d820c50170F4eA9 --datadir=./data --networkid 15032001  --maxpeers=0 --nodiscover --allow-insecure-unlock --syncmode full --gcmode archive

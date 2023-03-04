@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path")
 const contractsFile = path.join(__dirname, "..", "backend", "src", "contracts","contract-address.json");
 const config = require(`${contractsFile}`);
-
+const hre = require("hardhat");
 
 async function smartContractEventListener () {
     InsecureEtherValutFactory = await ethers.getContractFactory('InsecureEtherVault');
@@ -15,7 +15,7 @@ async function smartContractEventListener () {
             eventData: event,
         }
         console.log(JSON.stringify(eventData, null, 4))
-        contract.getBalance()
+        hre.ethers.provider.getBalance(contract.address)
             .then((data) => console.log("Get balance : ",data));
     });
 }

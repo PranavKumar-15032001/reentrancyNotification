@@ -11,13 +11,17 @@ module.exports = {
   solidity: "0.8.13",
   networks: {
     hardhat: {
+      chainId : 15032001,
       forking : {
-        url : `https://eth-mainnet.g.alchemy.com/v2/${process.env.API_KEY}`
-      },
-      mining : {
-        auto: false,
-        interval: 5000
+        url : `http://127.0.0.1:8545`
       }
+    },
+    geth : {
+      chainId : 15032001,
+      url : "http://127.0.0.1:8545",
+      gas: 2100000,
+      gasPrice: 6000000000,
+      accounts : [`${process.env.DEPLOYER_PRIVATE_KEY}`,`${process.env.ATTACKER_PRIVATE_KEY}`]
     }
   }
 };

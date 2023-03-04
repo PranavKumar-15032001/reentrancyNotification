@@ -18,7 +18,7 @@ async function main() {
     "Deploying the contracts with the account:",
     await deployer.getAddress()
   );
-
+  var deployerAddress = await deployer.getAddress();
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
   const InsecureEtherVault = await ethers.getContractFactory("InsecureEtherVault");
@@ -27,10 +27,10 @@ async function main() {
 
   console.log("InsecureEtherVault address:", insecureEtherVault.address);
   console.log("Owner Address",await insecureEtherVault.owner());
-  await insecureEtherVault.deposit({value: ethers.utils.parseEther("5.0")});
-  console.log("Balance " , await insecureEtherVault.getBalance());
+  console.log(await insecureEtherVault.deposit({value: ethers.utils.parseEther("5.0")}));
   // We also save the contract's artifacts and address in the frontend directory
   saveBackendFiles(insecureEtherVault);
+  console.log("Balance " , await insecureEtherVault.getUserBalance(deployerAddress));
 }
 
 function saveBackendFiles(token) {
