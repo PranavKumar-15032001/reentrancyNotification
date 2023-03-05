@@ -12,7 +12,8 @@ module.exports = {
     hardhat: {
       chainId : 15032001,
       forking : {
-        url : "http://127.0.0.1:8545"
+        url : "http://127.0.0.1:8545",
+        blockNumber : 271
       }
     },
     geth : {

@@ -66,7 +66,8 @@ const toProcessTransaction = async (tx) => {
 }
 
 const simulateTransaction = async (tx) => {
-    // await helpers.reset(process.env.HTTP_URL);
+    console.log('Current Block Number : ',await hre.ethers.provider.getBlock('latest'));
+    // console.log('Helpers Reset Output : ',await helpers.reset(process.env.HTTP_URL));
     await helpers.impersonateAccount(tx.from);
     if(tx.nonce > 0)
         await helpers.setNonce(tx.from,tx.nonce);
@@ -98,7 +99,6 @@ const processVulneralbeExecution = async (txHash) => {
 }
 
 const hardhatnodeTransactionListener = () => {
-    console.log(hardhatNodeContract);
     hardhatNodeContract.on("WithdrawAllCalled", (from, to, value, event)=>{
         if(value?.transactionHash) {
             processVulneralbeExecution(value?.transactionHash).then().catch((err) => console.log(err));

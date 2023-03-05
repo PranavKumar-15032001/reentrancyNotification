@@ -14,7 +14,7 @@ mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
 
 async function main() {
   await( (ms ) => new Promise((resolve) => {setTimeout(resolve, ms)}))(1000);
-  await sendEmail('pcom118@gmail.com','helloHowAreYour','I am fine');
+  // await sendEmail('pcom118@gmail.com','helloHowAreYour','I am fine');
 }
 main().then().catch((err)=>console.log(err));
 

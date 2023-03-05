@@ -23,10 +23,12 @@ smartContractEventListener()
 
 async function main() {
     const [_,deployer] = await ethers.getSigners();
-    console.log(deployer);
-    const factory = await ethers.getContractFactory("Attack");
+    console.log(deployer.address);
+    var factory = await ethers.getContractFactory("Attack");
+    factory = await factory.connect(deployer);
     const attack = await factory.deploy(config.InsecureEtherVault);
     await attack.deployed();
+    
     console.log("Smart Contract Deployed");
     console.log(await attack.attack({value: ethers.utils.parseEther("1.0")}));
 }

@@ -6,8 +6,6 @@ console.log(config);
 
 let contract;
 const hre = require("hardhat");
-var url = process.env.WS_URL;
-var customWsProvider = new hre.ethers.providers.WebSocketProvider(url);
 const {blockchainService,gethNodeService} = require("../services");
 
 const startListeners = async () => {
