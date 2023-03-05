@@ -1,4 +1,4 @@
-# Hardhat Boilerplate
+# Reentrancy Prevention
 
 The execution is as follows :
 
@@ -44,3 +44,7 @@ npx hardhat run scripts/deposit.js --network geth #Deposit into the vault
 npx hardhat run scripts/attack.js --network geth #Attack the vault smart contract
 npx hardhat run scripts/unpause.js --network geth #Unpause Vault Smart Contract
 ```
+
+## Known Issues
+- Synchronization issue between hardhat forking node and the private geth network by 20 blocks.
+- Resetting the network using helpers.reset(url), doesn't emit the log events.
