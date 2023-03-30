@@ -15,8 +15,6 @@
 6. If vulnerable event emitted on the pending transaction while execution in hardhat node, then marking it as suspicious.
 7. Front running the suspicious transaction with pause transaction.
 
-The execution is as follows :
-
 # Simulation
 
 ```bash
